@@ -1,0 +1,756 @@
+/* =================================================
+   RESET & BASE STYLES
+================================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Epilogue', sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Epilogue', sans-serif;
+    background-color: #f8fafc;
+}
+
+/* =================================================
+   SIDEBAR KIRI & COLLAPSIBLE
+================================================= */
+.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 20px;
+    height: 100vh;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar-top {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+}
+
+.brand-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.brand-logo {
+    max-width: 350px;
+    height: auto;
+}
+
+/* Tombol Toggle Sidebar */
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+/* Kondisi saat Sidebar Ditutup */
+body.sidebar-collapsed .sidebar {
+    transform: translateX(-100%);
+}
+
+body.sidebar-collapsed .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/* =================================================
+   NAVIGASI MENU
+================================================= */
+.menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #f1f5f9;
+    color: #173B45;
+}
+
+.menu-item.active {
+    background-color: #F8EDED;
+    color: #FF8225;
+}
+
+.menu-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/* =================================================
+   SUBMENU FILTER TANGGAL (ACCORDION)
+================================================= */
+.submenu-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding-left: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.submenu-container.open {
+    max-height: 220px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.filter-box {
+    background: #F8EDED;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-box label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #173B45;
+    text-transform: uppercase;
+}
+
+.filter-box input[type="date"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #173B45;
+    background: #ffffff;
+}
+
+.filter-btn {
+    background-color: #FF8225;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.filter-btn:hover {
+    background-color: #e06f1d;
+}
+
+/* =================================================
+   FOOTER SIDEBAR (USER & LOGOUT)
+================================================= */
+.sidebar-footer {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 16px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #ffffff;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #FF8225;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #173B45;
+}
+
+.user-role {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.logout-btn {
+    width: 100%;
+    background-color: #F8EDED;
+    color: #B43F3F;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.logout-btn:hover {
+    background-color: #f7d6d6;
+}
+
+/* =================================================
+   KONTEN UTAMA DASHBOARD
+================================================= */
+.main-content {
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 30px;
+    box-sizing: border-box;
+    position: relative !important;
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+.top-bar {
+    margin-bottom: 20px;
+}
+
+.top-bar h2 {
+    font-size: 40px;
+    font-weight: 800;
+    color: #173B45;
+    letter-spacing: -0.5px;
+}
+
+.top-bar p {
+    font-size: 16px;
+    color: #64748b;
+    margin-top: 4px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #173B45;
+    margin-bottom: 12px;
+    margin-top: 16px;
+}
+
+/* Grid Kartu Metrik */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card h3 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.stat-card .value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #173B45;
+}
+
+.stat-card .note {
+    font-size: 11px;
+    color: #10b981;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* Grid Grafik */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+
+.chart-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chart-card h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #173B45;
+    margin-bottom: 12px;
+}
+
+.chart-container {
+    position: relative;
+    height: 190px;
+    width: 100%;
+}
+
+/* Kartu Pengaturan */
+.settings-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+    margin-top: 20px;
+}
+
+.setting-info h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #173B45;
+    margin-bottom: 4px;
+}
+
+.setting-info p {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.theme-toggle-btn {
+    background-color: #FF8225;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #e06f1d;
+}
+
+/* =================================================
+   DARK MODE CONFIGURATIONS
+================================================= */
+body.dark-mode {
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .main-content,
+body.dark-mode .content-wrapper,
+body.dark-mode table,
+body.dark-mode .data-table,
+body.dark-mode div[class*="container"] {
+    background-color: #1a2035 !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .top-bar h2,
+body.dark-mode .top-bar p {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .sidebar {
+    background-color: #1e293b;
+    border-right-color: #334155;
+}
+
+body.dark-mode .settings-card {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+body.dark-mode .setting-info h4 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .setting-info p {
+    color: #94a3b8;
+}
+
+body.dark-mode .menu-item {
+    color: #cbd5e1;
+}
+
+body.dark-mode .menu-item:hover {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+body.dark-mode .menu-item.active {
+    background-color: #334155;
+    color: #FF8225;
+}
+
+body.dark-mode .sidebar-footer,
+body.dark-mode .user-profile {
+    border-top-color: #334155;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+body.dark-mode .user-name {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .user-role {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .logout-btn {
+    background-color: #334155;
+    color: #f87171;
+}
+
+body.dark-mode .logout-btn:hover {
+    background-color: #475569;
+}
+
+body.dark-mode .stat-card,
+body.dark-mode .chart-card,
+body.dark-mode .settings-card {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode p,
+body.dark-mode label {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .section-title {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .note {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .stat-card .value,
+body.dark-mode [id*="val-"],
+body.dark-mode .stat-card h3 + div {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+/* Sidebar & Filter Dark Mode Fixes */
+body.dark-mode .submenu-container,
+body.dark-mode .filter-box {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode .filter-box label {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .filter-box input[type="date"] {
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+/* Transparansi Panel Filter & Hilangkan Kotak Logo */
+body.dark-mode aside .filter-section,
+body.dark-mode .sidebar .filter-container,
+body.dark-mode aside div:has(> .filter-container),
+body.dark-mode div[style*="background"],
+body.dark-mode .sidebar-top,
+body.dark-mode .brand-logo,
+body.dark-mode aside .logo-container,
+body.dark-mode div:has(> img[alt*="Astra"], > img[src*="logo"]) {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Ikon Menu Menjadi Putih di Dark Mode */
+body.dark-mode .menu-item img,
+body.dark-mode .sidebar img.menu-icon,
+body.dark-mode .sidebar-top img,
+body.dark-mode .brand-logo {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Tabel & Aktivitas Dark Mode Fixes */
+body.dark-mode .data-table tbody tr {
+    background-color: #242b42 !important;
+    border-color: #2d3748 !important;
+}
+
+body.dark-mode tr,
+body.dark-mode th,
+body.dark-mode td {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+    border-color: #2d3748 !important;
+}
+
+body.dark-mode tbody tr:hover {
+    background-color: #242b42 !important;
+}
+
+body.dark-mode h1.aktivitas-title,
+body.dark-mode p.aktivitas-subtitle,
+body.dark-mode .section-header {
+    color: #f7fafc !important;
+}
+
+body.dark-mode .badge-platform {
+    background-color: #4a5568 !important;
+    color: #ffffff !important;
+}
+
+/* Chart Dark Mode Fixes */
+body.dark-mode canvas {
+    background-color: transparent !important;
+}
+
+body.dark-mode .chartjs-size-monitor,
+body.dark-mode .chart-container-wrapper {
+    background-color: #1a2035 !important;
+}
+
+body.dark-mode .chart-title,
+body.dark-mode .chart-legend-text {
+    color: #e2e8f0 !important;
+}
+/* --- Paksa Background Kontainer Tabel & Kartu menjadi Gelap --- */
+body.dark-mode .card,
+body.dark-mode .table-container,
+body.dark-mode .content-card,
+body.dark-mode div[class*="card"],
+body.dark-mode div[class*="wrapper"] {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+/* --- Perbaikan Dark Mode untuk Filter Sidebar & Judul Tabel --- */
+body.dark-mode .filter-box {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode .filter-box label,
+body.dark-mode .submenu-container label {
+    color: #94a3b8 !important; /* Membuat teks label tanggal jadi kontras & jelas */
+}
+
+body.dark-mode .card-header,
+body.dark-mode .table-container h3,
+body.dark-mode div[class*="header"] h3,
+body.dark-mode .main-content div > span,
+body.dark-mode .main-content div > div > span,
+body.dark-mode .main-content div > div > div > span {
+    color: #f1f5f9 !important;
+}
+
+/* Memperjelas teks judul "Daftar Aduan & Pesan Masuk" */
+body.dark-mode .main-content .table-container div:first-child,
+body.dark-mode .main-content div[style*="background"] div:first-child,
+body.dark-mode .main-content div > div:first-child {
+    color: #f1f5f9 !important;
+}
+/* --- Paksa Kotak Filter di Sidebar Menjadi Gelap Total --- */
+body.dark-mode .submenu-container.open,
+body.dark-mode div.filter-box,
+body.dark-mode .sidebar .submenu-container {
+    background-color: #1e293b !important;
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+/* --- Paksa Kotak Filter Tanggal Jadi Gelap di Dark Mode --- */
+body.dark-mode .filter-box {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+}
+
+body.dark-mode .submenu-container .filter-box {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+}
+/* --- Perbaikan Layout Grid Grafik Agar Tidak Keluar Layar --- */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr !important; /* Ubah menjadi 2 kolom utama */
+    gap: 16px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Pastikan kartu di dalam grid menyesuaikan diri */
+.charts-grid .chart-card {
+    min-width: 0; /* Mencegah flex/grid item meluber keluar */
+    width: 100%;
+}
+
+/* Khusus layar yang lebih kecil, jadikan 1 kolom ke bawah */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+/* --- Mengatur Semua Grafik & Pie Chart agar Sejajar dalam Satu Baris --- */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr !important; /* Paksa menjadi 3 kolom berdampingan */
+    gap: 16px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Pastikan setiap kartu grafik fleksibel dan mengecil otomatis */
+.charts-grid .chart-card {
+    min-width: 0; 
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Batasi ukuran tinggi canvas grafik agar proporsional */
+.charts-grid .chart-container {
+    position: relative;
+    height: 180px;
+    width: 100%;
+}
+/* Mengatur ketebalan font sub-judul di bawah SMARTDASH menjadi lebih tipis */
+.main-content > p,
+.main-content h1 + p,
+.main-content div > p:first-of-type {
+    font-weight: 400 !important; /* Gunakan 300 untuk tipis, 400 untuk normal/reguler */
+}
+/* --- Penyesuaian Gaya Judul Utama (Heading / Page Title) --- */
+.main-content h1,
+.content-header h1,
+h1 {
+    font-family: 'Epilogue', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 28px !important;
+    letter-spacing: -0.5px !important; /* Membuat teks tampak lebih rapat dan rapi */
+    color: #1e293b !important;
+}
+
+/* Menyesuaikan warna judul utama jika sedang dalam Dark Mode */
+body.dark-mode .main-content h1,
+body.dark-mode .content-header h1,
+body.dark-mode h1 {
+    color: #f1f5f9 !important;
+}
+/* --- Mengubah Teks Agar Tidak Uppercase (Kembali Normal) --- */
+.main-content h1,
+.content-header h1,
+h1,
+.stat-card h3,
+.card-header h3,
+.menu-label,
+.sidebar .menu-label {
+    text-transform: none !important;
+}
+/* --- Mengembalikan Tombol Filter ke Ukuran Normal --- */
+.filter-box button,
+.submenu-container button {
+    width: auto !important;           /* Lebar menyesuaikan isi tombol */
+    display: inline-block !important; /* Mengubah dari block menjadi inline */
+    padding: 8px 16px !important;     /* Sesuaikan padding/ketebalan tombol */
+}
