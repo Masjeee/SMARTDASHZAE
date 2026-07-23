@@ -415,9 +415,30 @@
                         }
                     }
 
-                    if (allData.length === 0) {
-                        tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Tidak ada data aktivitas terkini.</td></tr>`;
-                        return;
+                  function getRowDateStr(r) {
+                        let val = r["Waktu Masuk"] || r["Tanggal dan Waktu"] || r["Waktu"] || r["Tanggal"] || "";
+                        if (!val) return "";
+                        return String(val).substring(0, 10);
+                  }
+            
+                    let dates = allData.map(r => getRowDateStr(r)).filter(Boolean);
+                    
+                    let filteredRows = allData;
+                    if (dates.length > 0) {
+                        dates.sort();
+                        let latestDateStr = dates[dates.length - 1];
+                        
+                        let maxDate = new Date(latestDateStr + "T23:59:59");
+                        let minDate = new Date(maxDate);
+                        minDate.setDate(minDate.getDate() - 3);
+                        minDate.setHours(0, 0, 0, 0);
+            
+                        filteredRows = allData.filter(r => {
+                            let rawDateStr = getRowDateStr(r);
+                            if (!rawDateStr) return false;
+                            let rowDate = new Date(rawDateStr + "T00:00:00");
+                            return rowDate >= minDate && rowDate <= maxDate;
+                        });
                     }
 
                     // Filter 3 hari terakhir berdasarkan tanggal terbaru di spreadsheet
