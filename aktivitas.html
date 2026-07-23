@@ -420,6 +420,29 @@
                         return;
                     }
 
+                    // Filter 3 hari terakhir berdasarkan tanggal terbaru di spreadsheet
+                    let dates = allData.map(r => r["Waktu Masuk"] ? String(r["Waktu Masuk"]).substring(0, 10) : "").filter(Boolean);
+                    
+                    let filteredRows = allData;
+                    if (dates.length > 0) {
+                        dates.sort();
+                        let latestDateStr = dates[dates.length - 1];
+                        
+                        let maxDate = new Date(latestDateStr + "T23:59:59");
+                        let minDate = new Date(maxDate);
+                        minDate.setDate(minDate.getDate() - 3);
+                        minDate.setHours(0, 0, 0, 0);
+            
+                        filteredRows = allData.filter(r => {
+                            if (!r["Waktu Masuk"]) return false;
+                            let rawDateStr = String(r["Waktu Masuk"]).substring(0, 10);
+                            let rowDate = new Date(rawDateStr + "T00:00:00");
+                            return rowDate >= minDate && rowDate <= maxDate;
+                        });
+                    }
+
+        // Tampilkan data ke tabel (pastikan fungsi render atau perulangan tabelmu menggunakan filteredRows)
+        // Jika render tabelmu pakai perulangan manual di bawahnya, ganti sumber datanya menjadi filteredRows
                     // Urutkan dari waktu yang paling baru ke terlama
                     let sortedRows = [...allData].sort((a, b) => {
                         let dateA = new Date((a["Tanggal"] || "") + " " + (a["Waktu"] || "00:00:00"));
