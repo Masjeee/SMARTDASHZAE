@@ -485,9 +485,10 @@
             let endDate = new Date(endStr);
             endDate.setHours(23, 59, 59, 999);
 
-            let filteredRows = globalDataRows.filter(r => {
-                if(!r.Tanggal) return false;
-                let rowDate = new Date(r.Tanggal);
+          let filteredRows = globalDataRows.filter(r => {
+                if (!r["Tanggal"]) return false;
+                let rawDateStr = String(r["Tanggal"]).substring(0, 10);
+                let rowDate = new Date(rawDateStr + "T00:00:00");
                 return rowDate >= startDate && rowDate <= endDate;
             });
 
