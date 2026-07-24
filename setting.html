@@ -87,6 +87,16 @@
         } else {
             toggleBtn.innerText = "Aktifkan Dark Mode";
         }
+        document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById("sidebarToggle");
+        const sidebar = document.querySelector(".sidebar");
+
+        if (toggleBtn && sidebar) {
+            toggleBtn.addEventListener("click", function() {
+                sidebar.classList.toggle("active");
+            });
+        }
+    });
 
         // Logika Sinkronisasi & Toggle Tema
         toggleBtn.addEventListener('click', () => {
