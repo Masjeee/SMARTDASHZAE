@@ -428,6 +428,17 @@
         }
         let globalDataRows = [];
 
+        document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById("sidebarToggle");
+        const sidebar = document.querySelector(".sidebar");
+
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener("click", function() {
+                    sidebar.classList.toggle("active");
+                });
+            }
+        });
+
         // Update Jam Realtime di Header
         function updateClock() {
             const now = new Date();
