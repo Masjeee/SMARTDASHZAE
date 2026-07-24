@@ -754,3 +754,43 @@ h1,
     display: inline-block !important; /* Mengubah dari block menjadi inline */
     padding: 8px 16px !important;     /* Sesuaikan padding/ketebalan tombol */
 }
+
+@media screen and (max-width: 768px) {
+    /* 1. Ubah layout utama menjadi satu kolom ke bawah */
+    body, .dashboard-container, .main-content-wrapper {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+    }
+
+    /* 2. Sembunyikan sidebar secara default di HP, atau posisikan di atas secara rapi */
+    .sidebar {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        box-shadow: none !important;
+        margin-bottom: 20px;
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* 3. Pastikan konten utama memenuhi layar penuh ke bawah */
+    .main-content, .content {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 5px !important;
+    }
+
+    /* 4. Atur ulang kartu metrik dan grafik agar tidak menumpuk ke samping */
+    .row, .charts-container, .dashboard-grid, div[style*="display: flex"] {
+        flex-direction: column !important;
+        display: flex !important;
+    }
+
+    .envato-card, .card, div[class*="col-"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 15px !important;
+    }
+}
