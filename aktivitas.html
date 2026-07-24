@@ -361,6 +361,16 @@
         if (localStorage.getItem('sidebar') === 'collapsed') {
             document.body.classList.add('sidebar-collapsed');
         }
+           document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById("sidebarToggle");
+            const sidebar = document.querySelector(".sidebar");
+    
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener("click", function() {
+                    sidebar.classList.toggle("active");
+                });
+            }
+        });
 
         // Update Jam Realtime di Header
         function updateClock() {
