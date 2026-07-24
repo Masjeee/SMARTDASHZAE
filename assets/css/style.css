@@ -761,48 +761,38 @@ h1,
     padding: 8px 16px !important;     /* Sesuaikan padding/ketebalan tombol */
 }
 
+/* --- PENGATURAN SIDEBAR MOBILE TOGGLE --- */
 @media screen and (max-width: 768px) {
-    /* 1. Atur ulang pembungkus utama agar lurus ke bawah */
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: hidden;
-    }
-
-    .dashboard-container, .main-content-wrapper, div[style*="display: flex"] {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* 2. Jadikan sidebar sebagai header atas di HP agar tidak melayang di tengah */
+    /* Sidebar disembunyikan ke kiri secara default di HP */
     .sidebar {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: auto !important;
-        float: none !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
-        margin-bottom: 15px !important;
-        padding: 15px !important;
+        position: fixed !important;
+        top: 0;
+        left: -280px !important;
+        width: 260px !important;
+        height: 100vh !important;
+        z-index: 9999;
+        background: #ffffff !important;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
     }
 
-    /* 3. Posisikan konten utama di bawah sidebar secara penuh */
+    /* Ketika tombol hamburger diklik, sidebar bergeser masuk ke layar */
+    .sidebar.active {
+        left: 0 !important;
+    }
+
+    /* Penyesuaian konten utama agar tidak ikut bergeser */
     .main-content, .content, main {
         width: 100% !important;
         margin-left: 0 !important;
-        padding: 10px !important;
-        float: none !important;
+        padding: 15px !important;
     }
 
-    /* 4. Sesuaikan lebar kartu dan grafik agar pas di layar HP */
+    /* Lebar kartu dan grafik pas di layar HP */
     .envato-card, .card, div[class*="col-"] {
         width: 100% !important;
         max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
         margin-bottom: 15px !important;
     }
 }
