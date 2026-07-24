@@ -754,23 +754,3 @@ h1,
     display: inline-block !important; /* Mengubah dari block menjadi inline */
     padding: 8px 16px !important;     /* Sesuaikan padding/ketebalan tombol */
 }
-
-@media screen and (max-width: 768px) {
-    /* Membuat kartu grafik berjejer ke bawah secara vertikal agar tidak sempit */
-    .row, .charts-container, .dashboard-grid {
-        display: flex;
-        flex-direction: column !important;
-    }
-    
-    /* Memastikan lebar kartu grafik dan metrik memenuhi layar HP */
-    .envato-card, .card {
-        width: 100% !important;
-        margin-bottom: 15px !important;
-    }
-    
-    /* Merapikan posisi logo di pojok kiri atas */
-    .brand-logo {
-        max-width: 150px !important;
-        height: auto;
-    }
-}
