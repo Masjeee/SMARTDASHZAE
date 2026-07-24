@@ -756,41 +756,62 @@ h1,
 }
 
 @media screen and (max-width: 768px) {
-    /* 1. Ubah layout utama menjadi satu kolom ke bawah */
-    body, .dashboard-container, .main-content-wrapper {
+    /* 1. Pastikan body dan container utama tidak memaksakan scroll horizontal */
+    body {
+        overflow-x: hidden;
+    }
+
+    .dashboard-container {
         display: block !important;
         width: 100% !important;
         margin: 0 !important;
-        padding: 10px !important;
+        padding: 0 !important;
     }
 
-    /* 2. Sembunyikan sidebar secara default di HP, atau posisikan di atas secara rapi */
+    /* 2. Aturan untuk Sidebar di HP (Posisikan di atas) */
     .sidebar {
         position: relative !important;
         width: 100% !important;
         height: auto !important;
-        box-shadow: none !important;
-        margin-bottom: 20px;
+        margin: 0 0 20px 0 !important;
         background: #ffffff;
-        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 15px !important;
+        text-align: center; /* Pusatkan isi sidebar */
     }
 
-    /* 3. Pastikan konten utama memenuhi layar penuh ke bawah */
-    .main-content, .content {
+    /* 3. PERBAIKAN KHUSUS LOGO: Biar kecil dan di tengah */
+    .sidebar .sidebar-top {
+        display: block !important;
+        text-align: center !important;
+        margin-bottom: 10px !important;
+    }
+
+    .sidebar .sidebar-top .brand-logo {
+        width: 120px !important; /* Ukuran logo tetap di HP */
+        height: auto !important;
+        max-width: none !important;
+        margin: 0 auto !important; /* Pusatkan logo */
+        display: block !important;
+        float: none !important;
+    }
+
+    /* 4. Aturan untuk Konten Utama di bawah sidebar */
+    .main-content {
         width: 100% !important;
         margin-left: 0 !important;
-        padding: 5px !important;
+        padding: 10px !important;
     }
 
-    /* 4. Atur ulang kartu metrik dan grafik agar tidak menumpuk ke samping */
-    .row, .charts-container, .dashboard-grid, div[style*="display: flex"] {
+    /* 5. Atur ulang kartu metrik dan grafik agar menumpuk ke bawah */
+    .row, .charts-container, div[style*="display: flex"] {
         flex-direction: column !important;
         display: flex !important;
     }
 
-    .envato-card, .card, div[class*="col-"] {
+    .envato-card, .card {
         width: 100% !important;
-        max-width: 100% !important;
         margin-bottom: 15px !important;
+        margin-right: 0 !important;
     }
 }
