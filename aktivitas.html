@@ -416,58 +416,71 @@
                     }
 
                  function getRowDateStr(r) {
-        let val = r["Waktu Masuk"] || r["Tanggal dan Waktu"] || r["Waktu"] || r["Tanggal"] || "";
-        if (!val) return "";
-        return String(val).substring(0, 10);
-    }
+                        let val = r["Waktu Masuk"] || r["Tanggal dan Waktu"] || r["Waktu"] || r["Tanggal"] || "";
+                        if (!val) return "";
+                        return String(val).substring(0, 10);
+                    }
 
-    let dates = allData.map(r => getRowDateStr(r)).filter(Boolean);
+                    console.log("Semua Data dari Spreadsheet:", allData);
+
+                    let dates = allData.map(r => getRowDateStr(r)).filter(Boolean);
+                    console.log("Daftar Tanggal yang Terdeteksi:", dates);
     
-    let filteredRows = allData;
-    if (dates.length > 0) {
-        dates.sort();
-        let latestDateStr = dates[dates.length - 1];
-        
-        let maxDate = new Date(latestDateStr + "T23:59:59");
-        let minDate = new Date(maxDate);
-        minDate.setDate(minDate.getDate() - 3);
-        minDate.setHours(0, 0, 0, 0);
+                    let filteredRows = allData;
+                    if (dates.length > 0) {
+                        dates.sort();
+                        let latestDateStr = dates[dates.length - 1];
+                        console.log("Tanggal Terbaru di Data:", latestDateStr);
+                        
+                        let maxDate = new Date(latestDateStr + "T23:59:59");
+                        let minDate = new Date(maxDate);
+                        minDate.setDate(minDate.getDate() - 3);
+                        minDate.setHours(0, 0, 0, 0);
+                
+                        let tempFiltered = allData.filter(r => {
+                            let rawDateStr = getRowDateStr(r);
+                            if (!rawDateStr) return false;
+                            let rowDate = new Date(rawDateStr + "T00:00:00");
+                            return rowDate >= minDate && rowDate <= maxDate;
+                        });
 
-        filteredRows = allData.filter(r => {
-            let rawDateStr = getRowDateStr(r);
-            if (!rawDateStr) return false;
-            let rowDate = new Date(rawDateStr + "T00:00:00");
-            return rowDate >= minDate && rowDate <= maxDate;
-        });
-    }
+                        if (tempFiltered.length > 0) {
+                            filteredRows = tempFiltered;
+                        } else {
+                            console.warn("Filter 3 hari tidak menemukan data, menampilkan seluruh data tersedia.");
+                            filteredRows = allData; // Fallback tampilkan semua
+                        }
+                    }
 
-    if (filteredRows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Tidak ada aktivitas dalam 3 hari terakhir.</td></tr>`;
-        return;
-    }
-
-    filteredRows.forEach((r, index) => {
-        let tipe = r["Tipe"] || "Direct Message";
-        let badgeClass = tipe.toLowerCase().includes("komentar") ? "badge-komentar" : "badge-dm";
-        let waktuGabung = (r["Tanggal"] || r["Waktu Masuk"] || r["Waktu"] || "") + (r["Jam"] ? " " + r["Jam"] : "");
-        let isiPesan = r["Isi Pesan"] || r["Pesan"] || "-";
-        
-        let tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${waktuGabung.trim() || "-"}</td>
-            <td><span class="badge-type ${badgeClass}">${tipe}</span></td>
-            <td><b>${r["Pengirim"] || "-"}</b></td>
-            <td>${isiPesan}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-})
-.catch(error => {
-    console.error('Error:', error);
-    document.getElementById('table-body').innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #B43F3F;">Gagal memuat data dari Google Spreadsheet.</td></tr>`;
-});
-});
-</script>
-</body>
-</html>
+                    if (filteredRows.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Tidak ada data sama sekali di spreadsheet.</td></tr>`;
+                        return;
+                    }
+                
+                    tbody.innerHTML = "";
+                    
+                    ilteredRows.forEach((r, index) => {
+                        let tipe = r["Tipe"] || "Direct Message";
+                        let badgeClass = tipe.toLowerCase().includes("komentar") ? "badge-komentar" : "badge-dm";
+                        let waktuGabung = (r["Tanggal"] || r["Waktu Masuk"] || r["Waktu"] || "") + (r["Jam"] ? " " + r["Jam"] : "");
+                        let isiPesan = r["Isi Pesan"] || r["Pesan"] || "-";
+                        
+                        let tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${waktuGabung.trim() || "-"}</td>
+                            <td><span class="badge-type ${badgeClass}">${tipe}</span></td>
+                            <td><b>${r["Pengirim"] || "-"}</b></td>
+                            <td>${isiPesan}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('table-body').innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #B43F3F;">Gagal memuat data dari Google Spreadsheet.</td></tr>`;
+                });
+                });
+                </script>
+                </body>
+                </html>
