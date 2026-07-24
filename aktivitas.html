@@ -441,28 +441,6 @@
                         });
                     }
 
-        // Tampilkan data ke tabel (pastikan fungsi render atau perulangan tabelmu menggunakan filteredRows)
-        // Jika render tabelmu pakai perulangan manual di bawahnya, ganti sumber datanya menjadi filteredRows
-                    // Urutkan dari waktu yang paling baru ke terlama
-                    let sortedRows = [...allData].sort((a, b) => {
-                        let dateA = new Date((a["Tanggal"] || "") + " " + (a["Waktu"] || "00:00:00"));
-                        let dateB = new Date((b["Tanggal"] || "") + " " + (b["Waktu"] || "00:00:00"));
-                        return dateB - dateA;
-                    });
-
-                    let latestRowDate = sortedRows[0]["Tanggal"] ? new Date(sortedRows[0]["Tanggal"]) : new Date();
-                    
-                    // Batas awal: 3 hari sebelum tanggal data paling akhir/terbaru
-                    let cutoffDate = new Date(latestRowDate);
-                    cutoffDate.setDate(cutoffDate.getDate() - 3);
-
-                    // Filter hanya data dalam rentang 3 hari terakhir
-                    let filteredRows = sortedRows.filter(r => {
-                        if (!r["Tanggal"]) return false;
-                        let rowDate = new Date(r["Tanggal"]);
-                        return rowDate >= cutoffDate && rowDate <= latestRowDate;
-                    });
-
                     if (filteredRows.length === 0) {
                         tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Tidak ada aktivitas dalam 3 hari terakhir.</td></tr>`;
                         return;
