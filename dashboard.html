@@ -9,75 +9,98 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* CSS Responsif Tambahan untuk Sidebar & Tampilan HP */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                left: -250px; /* Sembunyikan sidebar di luar layar sebelah kiri secara default */
+                transition: left 0.3s ease;
+            }
+            .sidebar.active {
+                left: 0; /* Munculkan sidebar saat kelas 'active' aktif */
+            }
+            .main-content {
+                margin-left: 0 !important; /* Lebarkan konten utama memenuhi layar HP */
+                width: 100%;
+                transition: margin-left 0.3s ease;
+            }
+        }
+        .sidebar-toggle-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: inherit;
+            margin-right: 15px;
+        }
+    </style>
 </head>
 <body>
     <!-- SIDEBAR -->
     <aside class="sidebar">
-    <!-- 1. Bagian Atas (Logo & Menu-menu) -->
-    <div class="sidebar-top">
-        <div class="brand-logo-container">
-            <img src="assets/icons/Logo.svg" alt="Logo Smartdash" class="brand-logo">
-        </div>
+        <!-- 1. Bagian Atas (Logo & Menu-menu) -->
+        <div class="sidebar-top">
+            <div class="brand-logo-container">
+                <img src="assets/icons/Logo.svg" alt="Logo Smartdash" class="brand-logo">
+            </div>
 
-        <div class="menu-section">
-            <div class="menu-label">Application</div>
-            <div class="menu-list">
-                <a href="dashboard.html" class="menu-item active">
-                    <img src="assets/icons/Dashboard.svg" alt="Dashboard" class="menu-icon"> Dashboard
-                </a>
-                <a href="#" class="menu-item" id="toggleTimeline">
-                    <img src="assets/icons/calendar.svg" alt="Timeline" class="menu-icon"> Timeline & Log
-                </a>
-                <!-- Submenu Filter Tanggal -->
-                <div class="submenu-container" id="timelineSubmenu">
-                    <div class="filter-box">
-                        <label>DARI TANGGAL</label>
-                        <input type="date" id="startDate">
-                        
-                        <label>SAMPAI TANGGAL</label>
-                        <input type="date" id="endDate">
-                        
-                        <!-- Cukup satu tombol ini saja -->
-                        <button class="filter-btn" id="applyFilterBtn">Terapkan Filter</button>
+            <div class="menu-section">
+                <div class="menu-label">Application</div>
+                <div class="menu-list">
+                    <a href="dashboard.html" class="menu-item active">
+                        <img src="assets/icons/Dashboard.svg" alt="Dashboard" class="menu-icon"> Dashboard
+                    </a>
+                    <a href="#" class="menu-item" id="toggleTimeline">
+                        <img src="assets/icons/calendar.svg" alt="Timeline" class="menu-icon"> Timeline & Log
+                    </a>
+                    <!-- Submenu Filter Tanggal -->
+                    <div class="submenu-container" id="timelineSubmenu">
+                        <div class="filter-box">
+                            <label>DARI TANGGAL</label>
+                            <input type="date" id="startDate">
+                            
+                            <label>SAMPAI TANGGAL</label>
+                            <input type="date" id="endDate">
+                            
+                            <button class="filter-btn" id="applyFilterBtn">Terapkan Filter</button>
+                        </div>
                     </div>
-                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-label">Others</div>
+                <div class="menu-list">
+                    <a href="aktivitas.html" class="menu-item">
+                        <img src="assets/icons/Aktivitas.svg" alt="Icon" class="menu-icon"> Aktivitas Harian
+                    </a>
+                    <a href="pesan.html" class="menu-item">
+                        <img src="assets/icons/message.svg" alt="Icon" class="menu-icon"> Pesan & Komplain
+                    </a>
+                    <a href="setting.html" class="menu-item">
+                        <img src="assets/icons/Setting.svg" alt="Icon" class="menu-icon"> Settings
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="menu-section">
-            <div class="menu-label">Others</div>
-            <div class="menu-list">
-                <a href="aktivitas.html" class="menu-item">
-                    <img src="assets/icons/Aktivitas.svg" alt="Icon" class="menu-icon"> Aktivitas Harian
-                </a>
-                <a href="pesan.html" class="menu-item">
-                    <img src="assets/icons/message.svg" alt="Icon" class="menu-icon"> Pesan & Komplain
-                </a>
-                <a href="setting.html" class="menu-item">
-                    <img src="assets/icons/Setting.svg" alt="Icon" class="menu-icon"> Settings
-                </a>
+        <!-- 2. Bagian Bawah (Profil & Logout) -->
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar">ZA</div>
+                <div class="user-info">
+                    <span class="user-name">Achmad Zaenudin</span>
+                    <span class="user-role">Corporate Communications</span>
+                </div>
             </div>
+            <a href="index.html" class="logout-btn">Keluar (Logout)</a>
         </div>
-    </div>
-
-    <!-- 2. Bagian Bawah (Profil & Logout) -> Harus di luar sidebar-top -->
-    <div class="sidebar-footer">
-        <div class="user-profile">
-            <div class="user-avatar">ZA</div>
-            <div class="user-info">
-                <span class="user-name">Achmad Zaenudin</span>
-                <span class="user-role">Corporate Communications</span>
-            </div>
-        </div>
-        <a href="index.html" class="logout-btn">Keluar (Logout)</a>
-    </div>
-</aside>
+    </aside>
 
     <!-- KONTEN UTAMA -->
     <main class="main-content">
         <div class="top-bar">
-            <!-- Taruh kode tombol di sini -->
+            <!-- Tombol Hamburger untuk Toggle Sidebar di HP -->
             <button id="sidebar-toggle" class="sidebar-toggle-btn">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -144,11 +167,34 @@
             </div>
         </div>
     </main>
-<script>
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-</script>
+
+    <!-- Skrip Inisialisasi Tema & Toggle Sidebar Mobile -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebar-toggle");
+
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener("click", function () {
+                    sidebar.classList.toggle("active");
+                });
+            }
+
+            // Menutup sidebar otomatis jika pengguna mengetuk area luar sidebar di layar HP
+            document.addEventListener("click", function (event) {
+                if (window.innerWidth <= 768) {
+                    if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+                        sidebar.classList.remove("active");
+                    }
+                }
+            });
+        });
+    </script>
+
     <!-- JS Eksternal -->
     <script src="assets/js/script.js"></script>
 </body>
