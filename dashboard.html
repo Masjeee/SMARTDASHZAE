@@ -10,21 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        /* CSS Responsif Tambahan untuk Sidebar & Tampilan HP */
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                left: -250px; /* Sembunyikan sidebar di luar layar sebelah kiri secara default */
-                transition: left 0.3s ease;
-            }
-            .sidebar.active {
-                left: 0; /* Munculkan sidebar saat kelas 'active' aktif */
-            }
-            .main-content {
-                margin-left: 0 !important; /* Lebarkan konten utama memenuhi layar HP */
-                width: 100%;
-                transition: margin-left 0.3s ease;
-            }
-        }
         .sidebar-toggle-btn {
             background: none;
             border: none;
