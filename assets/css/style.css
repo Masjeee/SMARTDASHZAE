@@ -754,3 +754,12 @@ h1,
     display: inline-block !important; /* Mengubah dari block menjadi inline */
     padding: 8px 16px !important;     /* Sesuaikan padding/ketebalan tombol */
 }
+/* Mengatur ukuran logo di sidebar agar pas dan tidak kebesaran */
+.sidebar-top img, 
+.brand-logo {
+    width: 100% !important;
+    max-width: 140px !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto 15px auto;
+}
