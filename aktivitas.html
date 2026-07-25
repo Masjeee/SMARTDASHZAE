@@ -364,7 +364,7 @@
                         <th width="6%">No</th>
                         <th width="20%">Waktu Masuk</th>
                         <th width="15%">Platform / Tipe</th>
-                        <th width="22%">Pengirim / Akun</th>
+                        <th width="22%">Nama / Akun</th>
                         <th width="37%">Isi Pesan / Komentar Terbaru</th>
                     </tr>
                 </thead>
@@ -467,12 +467,13 @@
                     if (dates.length > 0) {
                         dates.sort();
                         let latestDateStr = dates[dates.length - 1];
-                        let maxDate = new Date(latestDateStr + "T23:59:59");
+                        let maxDate = new Date(); 
                         let minDate = new Date(maxDate);
                         minDate.setDate(minDate.getDate() - 3);
                         minDate.setHours(0, 0, 0, 0);
+                        maxDate.setHours(23, 59, 59, 999);
 
-                        let tempFiltered = allData.filter(r => {
+                        let filteredRows = allData.filter(r => {
                             let rawDateStr = getRowDateStr(r);
                             if (!rawDateStr) return false;
                             let rowDate = new Date(rawDateStr + "T00:00:00");
@@ -493,15 +494,26 @@
                     filteredRows.forEach((r, index) => {
                         let tipe = r["Tipe"] || "Direct Message";
                         let badgeClass = tipe.toLowerCase().includes("komentar") ? "badge-komentar" : "badge-dm";
-                        let waktuGabung = (r["Tanggal"] || r["Waktu Masuk"] || r["Waktu"] || "") + (r["Jam"] ? " " + r["Jam"] : "");
+                        
+                        let rawWaktu = String(r["Waktu Masuk"] || r["Tanggal dan Waktu"] || r["Waktu"] || r["Tanggal"] || "");
+                        let waktuMasuk = rawWaktu;
+                        
+                        if (!rawWaktu || rawWaktu.includes("1899") || rawWaktu.includes("1899-12-30")) {
+                            waktuMasuk = r["Tanggal"] || "Terbaru";
+                        } else if (rawWaktu.length > 19) {
+                            waktuMasuk = rawWaktu.substring(0, 10) + " " + rawWaktu.substring(11, 19);
+                        }
+
+                        // Pengecekan nama pengirim: ambil dari kolom Pengirim, Nama, atau Nama / Akun sesuai sheet masing-masing
+                        let namaPengirim = r["Pengirim"] || r["Nama"] || r["Nama / Akun"] || "-";
                         let isiPesan = r["Isi Pesan"] || r["Pesan"] || "-";
                         
                         let tr = document.createElement('tr');
                         tr.innerHTML = `
                             <td>${index + 1}</td>
-                            <td>${waktuGabung.trim() || "-"}</td>
+                            <td>${waktuMasuk}</td>
                             <td><span class="badge-type ${badgeClass}">${tipe}</span></td>
-                            <td><b>${r["Pengirim"] || "-"}</b></td>
+                            <td><b>${namaPengirim}</b></td>
                             <td>${isiPesan}</td>
                         `;
                         tbody.appendChild(tr);
