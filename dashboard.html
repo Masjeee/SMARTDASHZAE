@@ -9,16 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .sidebar-toggle-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: inherit;
-            margin-right: 15px;
-        }
-    </style>
 </head>
 <body>
     <!-- SIDEBAR -->
@@ -85,14 +75,17 @@
     <!-- KONTEN UTAMA -->
     <main class="main-content">
         <div class="top-bar">
-            <div class="top-bar-left" style="display: flex; align-items: center; gap: 12px;">
-                <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle Menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="main-logo-container">
-                    <img src="assets/icons/SmartDash Panjang.svg" alt="Logo Smartdash" style="max-width: 160px; height: auto; display: block;">
-                </div>
+            <!-- Tombol Hamburger untuk Toggle Sidebar di HP -->
+            <button id="sidebar-toggle" class="sidebar-toggle-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            
+            <!-- Mengganti teks SMARTDASH dengan Logo Panjang -->
+            <div>
+                <img src="assets/icons/SmartDash Panjang.svg" alt="Logo Smartdash" style="max-width: 200px; height: auto; display: block; margin-bottom: 4px;">
+                <p>System Manajemen Aduan Real-time & Dashboard Monitoring Astra Tol Tamer.</p>
             </div>
+            
             <div class="live-badge" id="current-time">Memuat waktu...</div>
         </div>
 
@@ -172,26 +165,6 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const sidebar = document.querySelector(".sidebar");
-            const toggleBtn = document.getElementById("sidebarToggle");
-
-            if (toggleBtn && sidebar) {
-                toggleBtn.addEventListener("click", function () {
-                    sidebar.classList.toggle("active");
-                });
-            }
-
-            // Menutup sidebar otomatis jika pengguna mengetuk area luar sidebar di layar HP
-            document.addEventListener("click", function (event) {
-                if (window.innerWidth <= 768) {
-                    if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
-                        sidebar.classList.remove("active");
-                    }
-                }
-            });
-        });
     </script>
 
     <!-- JS Eksternal -->
