@@ -6,6 +6,7 @@
     <title>Aktivitas Harian - SMARTDASH Astra Infra Toll Road Tangerang-Merak</title>
     <link rel="icon" type="image/png" href="assets/icons/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         * {
@@ -327,11 +328,16 @@
     </aside>
 
     <!-- KONTEN UTAMA -->
-    <main class="main-content">
+  <main class="main-content">
         <div class="top-bar">
-            <div>
-                <h2>Aktivitas Harian</h2>
-                <p>Live feed aktivitas interaksi, Direct Message (DM), dan komentar 3 hari terakhir.</p>
+            <div class="top-bar-left" style="display: flex; align-items: center; gap: 12px;">
+                <button id="sidebar-toggle" class="sidebar-toggle-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <h2>Aktivitas Harian</h2>
+                    <p>Live feed aktivitas interaksi, Direct Message (DM), dan komentar 3 hari terakhir.</p>
+                </div>
             </div>
             <div class="live-badge" id="current-time">Memuat waktu...</div>
         </div>
