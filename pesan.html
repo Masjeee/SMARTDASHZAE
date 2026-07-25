@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesan & Komplain - SMARTDASH Astra Infra Toll Road Tangerang-Merak</title>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         * {
@@ -33,6 +34,7 @@
             padding: 24px 20px;
             height: 100vh;
             box-shadow: 4px 0 20px rgba(0, 0, 0, 0.02);
+            transition: left 0.3s ease-in-out;
         }
 
         .sidebar-top {
@@ -95,6 +97,11 @@
         .menu-item.active {
             background-color: #F8EDED;
             color: #FF8225;
+        }
+
+        .menu-icon {
+            width: 18px;
+            height: 18px;
         }
 
         /* Filter Box di Sidebar khusus Pesan & Komplain */
@@ -206,6 +213,18 @@
             background-color: #f7d6d6;
         }
 
+        /* Tombol Hamburger Mobile */
+        .sidebar-toggle-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #173B45;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-right: 15px;
+        }
+
         /* KONTEN UTAMA */
         .main-content {
             flex: 1;
@@ -219,6 +238,11 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 24px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
         }
 
         .top-bar h2 {
@@ -251,7 +275,7 @@
             border-radius: 14px;
             border: 1px solid rgba(226, 232, 240, 0.8);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
-            overflow: hidden;
+            overflow-x: auto;
         }
 
         .table-header-title {
@@ -266,6 +290,7 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            min-width: 700px;
         }
 
         th {
@@ -322,6 +347,29 @@
             color: #94a3b8;
             font-size: 13px;
         }
+
+        /* Responsif Mobile */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                position: fixed !important;
+                top: 0;
+                left: -280px !important;
+                height: 100vh !important;
+                z-index: 9999;
+            }
+            .sidebar.active {
+                left: 0 !important;
+            }
+            .sidebar-toggle-btn {
+                display: inline-block !important;
+            }
+            .main-content {
+                padding: 15px;
+            }
+            .top-bar h2 {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -332,18 +380,15 @@
             <div class="brand-logo-container">
                 <img src="assets/icons/Logo.svg" alt="Logo Smartdash" class="brand-logo">
             </div>
-            <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle Menu">
-                <i class="fas fa-bars"></i>
-            </button>
 
             <div class="menu-section">
                 <div class="menu-label">Application</div>
                 <div class="menu-list">
                     <a href="dashboard.html" class="menu-item">
-                        <img src="assets/icons/Dashboard.svg" alt="Icon" width="18" height="18"> Dashboard
+                        <img src="assets/icons/Dashboard.svg" alt="Icon" class="menu-icon"> Dashboard
                     </a>
                     <a href="aktivitas.html" class="menu-item">
-                        <img src="assets/icons/calendar.svg" alt="Icon" width="18" height="18"> Timeline & Log
+                        <img src="assets/icons/calendar.svg" alt="Icon" class="menu-icon"> Timeline & Log
                     </a>
                 </div>
             </div>
@@ -352,10 +397,10 @@
                 <div class="menu-label">Others</div>
                 <div class="menu-list">
                     <a href="aktivitas.html" class="menu-item">
-                        <img src="assets/icons/Aktivitas.svg" alt="Icon" width="18" height="18"> Aktivitas Harian
+                        <img src="assets/icons/Aktivitas.svg" alt="Icon" class="menu-icon"> Aktivitas Harian
                     </a>
                     <a href="pesan.html" class="menu-item active">
-                        <img src="assets/icons/message.svg" alt="Icon" width="18" height="18"> Pesan & Komplain
+                        <img src="assets/icons/message.svg" alt="Icon" class="menu-icon"> Pesan & Komplain
                     </a>
                     
                     <!-- Filter Tanggal Khusus Halaman Pesan -->
@@ -368,7 +413,7 @@
                     </div>
 
                     <a href="setting.html" class="menu-item">
-                        <img src="assets/icons/Setting.svg" alt="Icon" width="18" height="18"> Settings
+                        <img src="assets/icons/Setting.svg" alt="Icon" class="menu-icon"> Settings
                     </a>
                 </div>
             </div>
@@ -389,9 +434,14 @@
     <!-- KONTEN UTAMA -->
     <main class="main-content">
         <div class="top-bar">
-            <div>
-                <h2>Pesan & Komplain</h2>
-                <p>Monitoring khusus interaksi, aduan, dan sentimen negatif dari pelanggan.</p>
+            <div class="top-bar-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h2>Pesan & Komplain</h2>
+                    <p>Monitoring khusus interaksi, aduan, dan sentimen negatif dari pelanggan.</p>
+                </div>
             </div>
             <div class="live-badge" id="current-time">Memuat waktu...</div>
         </div>
@@ -403,11 +453,11 @@
                     <tr>
                         <th width="6%">No</th>
                         <th width="18%">Tanggal</th>
-                        <th width="9%">Jam</th>
-                        <th width="9%">Nam</th>th>
-                        <th width="32%">Isi Pesan / Komplain</th>
-                        <th width="14%">Kategori</th>
-                        <th width="12%">Tonality / Status</th>
+                        <th width="11%">Jam</th>
+                        <th width="12%">Nama</th>
+                        <th width="31%">Isi Pesan / Komplain</th>
+                        <th width="12%">Kategori</th>
+                        <th width="10%">Status</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -419,19 +469,13 @@
 
     <script>
         if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
+            document.body.classList.add('dark-mode');
         }
-        if (localStorage.getItem('sidebar') === 'collapsed') {
-        document.body.classList.add('sidebar-collapsed');
-        }
-        if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        }
-        let globalDataRows = [];
 
+        // Toggle Sidebar Mobile
         document.addEventListener("DOMContentLoaded", function() {
-        const toggleBtn = document.getElementById("sidebarToggle");
-        const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebarToggle");
+            const sidebar = document.querySelector(".sidebar");
 
             if (toggleBtn && sidebar) {
                 toggleBtn.addEventListener("click", function() {
@@ -450,13 +494,28 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // Fungsi Pembersih Format Jam (Menghilangkan "1899-12-30T...")
+        function formatJamBersih(rawJam) {
+            if (!rawJam) return "-";
+            let strJam = String(rawJam);
+            if (strJam.includes("T")) {
+                let parts = strJam.split("T");
+                if (parts.length > 1) {
+                    return parts[1].replace("Z", "").substring(0, 8);
+                }
+            }
+            return strJam;
+        }
+
+        let globalDataRows = [];
+
         // Fungsi Render Tabel Khusus Komplain / Pesan
         function renderTable(rows) {
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
 
             if (rows.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="empty-state">Tidak ada data pesan atau komplain pada rentang tanggal tersebut.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="empty-state">Tidak ada data pesan atau komplain pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
 
@@ -473,11 +532,13 @@
                     labelStatus = "Positif";
                 }
 
+                let cleanJam = formatJamBersih(r["Jam"]);
+
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${r["Tanggal"] || "-"}</td>
-                    <td>${r["Jam"] || "_"}</td>
+                    <td>${cleanJam}</td>
                     <td><b>${r["Nama"] || "-"}</b></td>
                     <td>${r["Isi Pesan"] || r["Pesan"] || "-"}</td>
                     <td>${r["Kategori"] || "-"}</td>
@@ -501,7 +562,7 @@
             let endDate = new Date(endStr);
             endDate.setHours(23, 59, 59, 999);
 
-          let filteredRows = globalDataRows.filter(r => {
+            let filteredRows = globalDataRows.filter(r => {
                 if (!r["Tanggal"]) return false;
                 let rawDateStr = String(r["Tanggal"]).substring(0, 10);
                 let rowDate = new Date(rawDateStr + "T00:00:00");
@@ -511,22 +572,20 @@
             renderTable(filteredRows);
         }
 
-        // Ambil Data dari data.json saat halaman dimuat
+        // Ambil Data dari Spreadsheet saat halaman dimuat
         document.addEventListener("DOMContentLoaded", function() {
-           // Konstanta URL Web App Google Apps Script kamu
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz4Jq0IJ9TbBqiANywb5WOp7A58MsSKGtAvG8TpEOm6U1QYbAo8ajRkakEOmazCiTIp/exec";
+            const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz4Jq0IJ9TbBqiANywb5WOp7A58MsSKGtAvG8TpEOm6U1QYbAo8ajRkakEOmazCiTIp/exec";
+            
             fetch(WEB_APP_URL)
                 .then(response => {
                     if (!response.ok) throw new Error('Gagal memuat data dari Spreadsheet');
                     return response.json();
                 })
                 .then(data => {
-                    // Menggabungkan data dari Sheet KOMENTAR dan DATA MENTAH DM
                     let rawKomentar = data.komentar || [];
                     let rawDm = data.dm || [];
                     let formattedData = [];
 
-                    // Parsing Sheet Komentar
                     if (rawKomentar.length > 1) {
                         let headersKomentar = rawKomentar[0];
                         for (let i = 1; i < rawKomentar.length; i++) {
@@ -538,7 +597,6 @@
                         }
                     }
 
-                    // Parsing Sheet DM
                     if (rawDm.length > 1) {
                         let headersDm = rawDm[0];
                         for (let i = 1; i < rawDm.length; i++) {
@@ -563,7 +621,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    document.getElementById('table-body').innerHTML = `<tr><td colspan="6" class="empty-state" style="color: #B43F3F;">Gagal memuat data dari Google Spreadsheet.</td></tr>`;
+                    document.getElementById('table-body').innerHTML = `<tr><td colspan="7" class="empty-state" style="color: #B43F3F;">Gagal memuat data dari Google Spreadsheet.</td></tr>`;
                 });
         });
     </script>
