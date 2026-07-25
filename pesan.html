@@ -402,8 +402,9 @@
                 <thead>
                     <tr>
                         <th width="6%">No</th>
-                        <th width="18%">Waktu Masuk</th>
-                        <th width="18%">Nama</th>
+                        <th width="18%">Tanggal</th>
+                        <th width="9%">Jam</th>
+                        <th width="9%">Nam</th>th>
                         <th width="32%">Isi Pesan / Komplain</th>
                         <th width="14%">Kategori</th>
                         <th width="12%">Tonality / Status</th>
@@ -476,6 +477,7 @@
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${r["Tanggal"] || "-"}</td>
+                    <td>${r["Jam"] || "_"}</td>
                     <td><b>${r["Nama"] || "-"}</b></td>
                     <td>${r["Isi Pesan"] || r["Pesan"] || "-"}</td>
                     <td>${r["Kategori"] || "-"}</td>
