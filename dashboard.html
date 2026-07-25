@@ -84,15 +84,17 @@
 
     <!-- KONTEN UTAMA -->
     <main class="main-content">
-        <div class="top-bar">
-            <!-- Tombol Hamburger untuk Toggle Sidebar di HP -->
-            <button id="sidebar-toggle" class="sidebar-toggle-btn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div>
-                <h2>SMARTDASH</h2>
-                <p>System Manajemen Aduan Real-time & Dashboard Monitoring Astra Tol Tamer.</p>
+       <div class="top-bar">
+            <div class="top-bar-left" style="display: flex; align-items: center; gap: 12px;">
+                <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <!-- Logo Pengganti Teks Smartdash -->
+                <div class="main-logo-container">
+                    <img src="assets/icons/SmartDash Panjang.svg" alt="Logo Smartdash" style="max-width: 160px; height: auto; display: block;">
+                </div>
             </div>
+            <div class="live-badge" id="current-time">Memuat waktu...</div>
         </div>
 
         <div class="section-title">Kategori Komplain</div>
