@@ -41,6 +41,71 @@
         height: auto;
         display: block;
     }
+        
+    .ig-section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #173B45;
+        margin: 30px 0 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .ig-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .ig-card {
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        border: 1px solid #e2e8f0;
+        transition: transform 0.2s ease;
+    }
+    .ig-card:hover {
+        transform: translateY(-3px);
+    }
+    .ig-thumbnail {
+        width: 100%;
+        height: 160px;
+        background: #f1f5f9;
+        object-fit: cover;
+    }
+    .ig-content {
+        padding: 15px;
+    }
+    .ig-caption {
+        font-size: 13px;
+        color: #334155;
+        line-height: 1.4;
+        margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .ig-link {
+        font-size: 12px;
+        font-weight: 600;
+        color: #E06F1D;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .ig-link:hover {
+        text-decoration: underline;
+    }
+    
+    /* Responsif untuk Layar HP */
+    @media (max-width: 768px) {
+        .ig-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 <body>
     <!-- SIDEBAR -->
@@ -174,9 +239,38 @@
                 </div>
             </div>
         </div>
+        <!-- SECTION: FEED INSTAGRAM TERBARU -->
+        <div class="ig-section-title">
+            <i class="fab fa-instagram" style="color: #E1306C; font-size: 18px;"></i> 3 Konten Terbaru Instagram @astratoltamer
+        </div>
+        <div class="ig-grid">
+            <!-- Konten 1 -->
+            <div class="ig-card">
+                <img src="assets/images/ig-sample-1.jpg" alt="Instagram Post 1" class="ig-thumbnail">
+                <div class="ig-content">
+                    <p class="ig-caption">Sahabat Tamer, pastikan kondisi kendaraan prima dan saldo uang elektronik cukup sebelum melintas di ruas tol Tangerang-Merak! 🚗💨</p>
+                    <a href="https://www.instagram.com/astratoltamer" target="_blank" class="ig-link">Lihat di Instagram <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            <!-- Konten 2 -->
+            <div class="ig-card">
+                <img src="assets/images/ig-sample-2.jpg" alt="Instagram Post 2" class="ig-thumbnail">
+                <div class="ig-content">
+                    <p class="ig-caption">Komitmen pelayanan terbaik untuk pengguna jalan. Tim layanan lalu lintas siap siaga 24 jam membantu perjalanan Anda. 🛣️✨</p>
+                    <a href="https://www.instagram.com/astratoltamer" target="_blank" class="ig-link">Lihat di Instagram <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            <!-- Konten 3 -->
+            <div class="ig-card">
+                <img src="assets/images/ig-sample-3.jpg" alt="Instagram Post 3" class="ig-thumbnail">
+                <div class="ig-content">
+                    <p class="ig-caption">Kampanye keselamatan berkendara bersama Astra Infra. Utamakan konsentrasi dan patuhi batas kecepatan maksimal di jalan tol. 🛑</p>
+                    <a href="https://www.instagram.com/astratoltamer" target="_blank" class="ig-link">Lihat di Instagram <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Skrip Inisialisasi Tema, Jam Realtime & Toggle Sidebar Mobile -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
@@ -217,6 +311,28 @@
                 });
             }
         });
+         document.addEventListener("DOMContentLoaded", function() {
+        // Ganti URL di bawah dengan endpoint API PythonAnywhere milikmu
+        fetch('https://Masjeee.pythonanywhere.com/api/ig-latest')
+            .then(response => response.json())
+            .then(data => {
+                // Asumsikan data berupa array berisi 3 postingan terbaru
+                const igCards = document.querySelectorAll('.ig-card');
+                
+                data.forEach((post, index) => {
+                    if (igCards[index]) {
+                        const img = igCards[index].querySelector('.ig-thumbnail');
+                        const caption = igCards[index].querySelector('.ig-caption');
+                        const link = igCards[index].querySelector('.ig-link');
+    
+                        if (img) img.src = post.image_url;
+                        if (caption) caption.innerText = post.caption;
+                        if (link) link.href = post.permalink;
+                    }
+                });
+            })
+            .catch(error => console.error('Gagal memuat feed Instagram:', error));
+    });
     </script>
 </body>
 </html>
