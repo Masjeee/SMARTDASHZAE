@@ -10,6 +10,38 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+    <style>
+    /* Styling Tombol Sidebar & Logo Header */
+    .sidebar-toggle-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: inherit;
+        margin-right: 5px;
+    }
+
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .top-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+    }
+
+    .main-logo-container img {
+        max-width: 140px !important; /* Memperkecil sedikit logo di layar HP */
+        height: auto;
+        display: block;
+    }
+</style>
 <body>
     <!-- SIDEBAR -->
     <aside class="sidebar">
