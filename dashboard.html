@@ -163,8 +163,28 @@
         setInterval(updateClock, 1000);
         updateClock();
     </script>
-
-    <!-- JS Eksternal -->
     <script src="assets/js/script.js"></script>
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebar-toggle");
+    
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    sidebar.classList.toggle("active");
+                });
+    
+                // Menutup sidebar otomatis jika pengguna mengetuk area luar sidebar di layar HP
+                document.addEventListener("click", function (event) {
+                    if (window.innerWidth <= 768) {
+                        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+                            sidebar.classList.remove("active");
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
